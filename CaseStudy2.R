@@ -170,24 +170,21 @@ str(train_data)
 
 # Assuming MonthlyIncome is already loaded in your data frame
 # First, check the range of MonthlyIncome
-range(data$MonthlyIncome)
+range(train_data$MonthlyIncome)
 
 # Now, create the breaks for the intervals
-min_income <- min(data$MonthlyIncome, na.rm = TRUE)
-max_income <- max(data$MonthlyIncome, na.rm = TRUE)
+min_income <- min(train_data$MonthlyIncome, na.rm = TRUE)
+max_income <- max(train_data$MonthlyIncome, na.rm = TRUE)
 breaks <- seq(from = min_income, to = max_income, by = 100)
 
 # Use cut function to create a new factor variable
-data$IncomeGroup <- cut(data$MonthlyIncome, breaks = breaks, include.lowest = TRUE, right = FALSE)
+train_data$IncomeGroup <- cut(train_data$MonthlyIncome, breaks = breaks, include.lowest = TRUE, right = FALSE)
 
 # Display the structure to see the changes
-str(data$IncomeGroup)
-
-# Optional: Convert IncomeGroup to a numeric code if needed
-data$IncomeGroupCode <- as.numeric(data$IncomeGroup)
+str(train_data$IncomeGroup)
 
 # Display the first few rows of the dataset to verify
-head(data)
+head(train_data)
 
 
 
