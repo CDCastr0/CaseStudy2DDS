@@ -12,6 +12,8 @@ knitr::opts_chunk$set(echo = TRUE)
 https://smu.zoom.us/rec/share/_PzRRtfdhT2ePWzXH0Lx2sIZMq8GwgeKTA2HAVasKvkCtHDZZRhChZdbOfmoVHVZ.ew57SCDdjbvTRiCs?startTime=1702429652000
 Passcode: rdV076=w
 
+CDCastr0.github.io/pro
+
 
 ## Preparing the Environment and Loading the Data
 
@@ -26,12 +28,16 @@ library(tidyr)
 library(caret)
 library(e1071)
 library(class)
+library(ggplot2)
 
 
 # Load data
 data <- read.csv(choose.files())
 
 
+```
+
+```{r}
 # Convert categorical variables to factors
 data$Attrition <- factor(data$Attrition, levels = c("No", "Yes"), labels = c(0, 1))
 data$BusinessTravel <- factor(data$BusinessTravel)
@@ -42,7 +48,9 @@ data$JobRole <- factor(data$JobRole)
 data$MaritalStatus <- factor(data$MaritalStatus)
 data$Over18 <- factor(data$Over18)
 data$OverTime <- factor(data$OverTime)
+```
 
+```{r}
 # Convert factors to numeric for correlation analysis
 data_numeric <- data %>%
   mutate(across(where(is.factor), as.numeric))
@@ -88,72 +96,72 @@ ggplot(data, aes(x = MaritalStatus, fill = Attrition)) +
   theme_minimal()
 
 # Visualizing correlations
-correlation_plot <- cor(data %>% select_if(is.numeric))
-ggplot(data = as.data.frame(correlation_plot), aes(x = Var1, y = Var2, fill = value)) +
+#correlation_plot <- cor(data %>% select_if(is.numeric))
+#ggplot(data = as.data.frame(correlation_plot), aes(x = Var1, y = Var2, fill = value)) +
   geom_tile()
 
 # Identifying top factors for attrition
-attrition_factors <- data %>% 
-  group_by(attrition) %>% 
-  summarise_all(funs(mean(., na.rm = TRUE)))
+#attrition_factors <- data %>% 
+#  group_by(attrition) %>% 
+#  summarise_all(funs(mean(., na.rm = TRUE)))
 #Analyzing the distribution of attrition across different departments
-ggplot(data, aes(x = Department, fill = Attrition)) +
-  geom_bar(position = "fill") +
-  labs(title = "Attrition Distribution Across Departments", x = "Department", y = "Proportion")
+#ggplot(data, aes(x = Department, fill = Attrition)) +
+#  geom_bar(position = "fill") +
+#  labs(title = "Attrition Distribution Across Departments", x = "Department", y = "Proportion")
 
 
 # Exploring the relationship between job satisfaction and attrition
-ggplot(data, aes(x = JobSatisfaction, fill = Attrition)) +
-  geom_bar(position = "fill") +
-  labs(title = "Job Satisfaction vs Attrition", x = "Job Satisfaction Level", y = "Proportion")
+#ggplot(data, aes(x = JobSatisfaction, fill = Attrition)) +
+#  geom_bar(position = "fill") +
+#  labs(title = "Job Satisfaction vs Attrition", x = "Job Satisfaction Level", y = "Proportion")
 
 # Relationship between total working years and attrition
-ggplot(data, aes(x = TotalWorkingYears, y = after_stat(count), fill = Attrition)) +
-  geom_histogram(binwidth = 1, position = "dodge") +
-  labs(title = "Total Working Years vs Attrition", x = "Total Working Years", y = "Count")
+#ggplot(data, aes(x = TotalWorkingYears, y = after_stat(count), fill = Attrition)) +
+#  geom_histogram(binwidth = 1, position = "dodge") +
+#  labs(title = "Total Working Years vs Attrition", x = "Total Working Years", y = "Count")
 
 # Plotting histogram of a variable (example: Age)
-ggplot(data, aes(x = Age)) + geom_histogram(bins = 30) + theme_minimal()
+#ggplot(data, aes(x = Age)) + geom_histogram(bins = 30) + theme_minimal()
 
 # Exploring relationship between two variables (example: Age and Attrition)
-ggplot(data, aes(x = Age, fill = Attrition)) + geom_histogram(bins = 30) + theme_minimal()
+#ggplot(data, aes(x = Age, fill = Attrition)) + geom_histogram(bins = 30) + theme_minimal()
 
 # Analyzing the distribution of attrition across different departments
-ggplot(data, aes(x = Department, fill = Attrition)) +
-  geom_bar(position = "fill") +
-  labs(title = "Attrition Distribution Across Departments", x = "Department", y = "Proportion")
+#ggplot(data, aes(x = Department, fill = Attrition)) +
+#  geom_bar(position = "fill") +
+#  labs(title = "Attrition Distribution Across Departments", x = "Department", y = "Proportion")
 
 # Exploring the relationship between job satisfaction and attrition
-ggplot(data, aes(x = JobSatisfaction, fill = Attrition)) +
-  geom_bar(position = "fill") +
-  labs(title = "Job Satisfaction vs Attrition", x = "Job Satisfaction Level", y = "Proportion")
+#ggplot(data, aes(x = JobSatisfaction, fill = Attrition)) +
+#  geom_bar(position = "fill") +
+#  labs(title = "Job Satisfaction vs Attrition", x = "Job Satisfaction Level", y = "Proportion")
 
 # Relationship between total working years and attrition
-ggplot(data, aes(x = TotalWorkingYears, y = after_stat(count), fill = Attrition)) +
-  geom_histogram(binwidth = 1, position = "dodge") +
-  labs(title = "Total Working Years vs Attrition", x = "Total Working Years", y = "Count")
+#ggplot(data, aes(x = TotalWorkingYears, y = after_stat(count), fill = Attrition)) +
+#  geom_histogram(binwidth = 1, position = "dodge") +
+#  labs(title = "Total Working Years vs Attrition", x = "Total Working Years", y = "Count")
 
 # Analyzing job role specific trends in job satisfaction
-ggplot(data, aes(x = JobRole, y = JobSatisfaction)) +
-  geom_boxplot() +
-  labs(title = "Job Satisfaction Across Different Job Roles", x = "Job Role", y = "Job Satisfaction Level") +
-  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+#ggplot(data, aes(x = JobRole, y = JobSatisfaction)) +
+#  geom_boxplot() +
+#  labs(title = "Job Satisfaction Across Different Job Roles", x = "Job Role", y = "Job Satisfaction Level") +
+#  theme(axis.text.x = element_text(angle = 45, hjust = 1))
 
 # Job role specific attrition trends
-ggplot(data, aes(x = JobRole, fill = Attrition)) +
-  geom_bar(position = "fill") +
-  labs(title = "Attrition Rates Across Different Job Roles", x = "Job Role", y = "Proportion") +
-  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+#ggplot(data, aes(x = JobRole, fill = Attrition)) +
+#  geom_bar(position = "fill") +
+#  labs(title = "Attrition Rates Across Different Job Roles", x = "Job Role", y = "Proportion") +
+#  theme(axis.text.x = element_text(angle = 45, hjust = 1))
 
 # Age distribution with respect to attrition
-ggplot(data, aes(x = Age, fill = Attrition)) +
-  geom_histogram(binwidth = 1, position = "dodge") +
-  labs(title = "Age Distribution vs Attrition", x = "Age", y = "Count")
+#ggplot(data, aes(x = Age, fill = Attrition)) +
+#  geom_histogram(binwidth = 1, position = "dodge") +
+#  labs(title = "Age Distribution vs Attrition", x = "Age", y = "Count")
 
 # Exploring the impact of marital status on attrition
-ggplot(data, aes(x = MaritalStatus, fill = Attrition)) +
-  geom_bar(position = "fill") +
-  labs(title = "Marital Status vs Attrition", x = "Marital Status", y = "Proportion")
+#ggplot(data, aes(x = MaritalStatus, fill = Attrition)) +
+#  geom_bar(position = "fill") +
+#  labs(title = "Marital Status vs Attrition", x = "Marital Status", y = "Proportion")
 
 ```
 
@@ -326,7 +334,7 @@ sensitivities <- c()
 specificities <- c()
 
 for (k in k_values) {
-  knn_model <- knn3(Attrition ~ ., data = train_data_balanced, k = k)
+  knn_model <- knn3(Attrition ~ ., data = train_data, k = k)
   knn_pred <- predict(knn_model, validation_set, type = "class")
   conf_matrix <- confusionMatrix(knn_pred, validation_set$Attrition)
   sensitivities <- c(sensitivities, conf_matrix$byClass["Sensitivity"])
