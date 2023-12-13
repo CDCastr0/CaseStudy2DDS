@@ -8,6 +8,11 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+# # Project Presentation 
+https://smu.zoom.us/rec/share/_PzRRtfdhT2ePWzXH0Lx2sIZMq8GwgeKTA2HAVasKvkCtHDZZRhChZdbOfmoVHVZ.ew57SCDdjbvTRiCs?startTime=1702429652000
+Passcode: rdV076=w
+
+
 ## Preparing the Environment and Loading the Data
 
 This is loading the necessary libraries like readr, dplyr, tidyr, ggplot2, caret, e1071, and class. 
@@ -275,24 +280,24 @@ str(train_data)
 
 # Assuming MonthlyIncome is already loaded in your data frame
 # First, check the range of MonthlyIncome
-range(data$MonthlyIncome)
+range(train_data$MonthlyIncome)
 
 # Now, create the breaks for the intervals
-min_income <- min(data$MonthlyIncome, na.rm = TRUE)
-max_income <- max(data$MonthlyIncome, na.rm = TRUE)
+min_income <- min(train_data$MonthlyIncome, na.rm = TRUE)
+max_income <- max(train_data$MonthlyIncome, na.rm = TRUE)
 breaks <- seq(from = min_income, to = max_income, by = 100)
 
 # Use cut function to create a new factor variable
-data$IncomeGroup <- cut(data$MonthlyIncome, breaks = breaks, include.lowest = TRUE, right = FALSE)
+train_data$IncomeGroup <- cut(train_data$MonthlyIncome, breaks = breaks, include.lowest = TRUE, right = FALSE)
 
 # Display the structure to see the changes
-str(data$IncomeGroup)
+str(train_data$IncomeGroup)
 
 # Optional: Convert IncomeGroup to a numeric code if needed
-data$IncomeGroupCode <- as.numeric(data$IncomeGroup)
+train_data$IncomeGroupCode <- as.numeric(train_data$IncomeGroup)
 
 # Display the first few rows of the dataset to verify
-head(data)
+head(train_data)
 
 train_data <- train_data %>%
   select(Attrition, MonthlyIncome, JobLevel, TotalWorkingYears) %>%
